@@ -16,18 +16,18 @@
 }
 
 button:hover {
-    background-color: rgba(84, 226, 172, 0.70);
+    background-color: #136CA9;
 }
 
 button {
-    background-color: rgba(95, 214, 169, 0.74);
+    background-color: #55abed;
     display: inline-block;
     position: relative;
     outline: none;
     height: 60px;
     padding: 0 40px;
     color: white;
-    font-size: 19px;
+    font-size: 18px;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
@@ -50,3 +50,4 @@ button {
     -moz-osx-font-smoothing: grayscale;
     -moz-font-feature-settings: "liga" on;
 }
+
