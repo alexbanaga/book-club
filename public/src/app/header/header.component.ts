@@ -43,13 +43,13 @@ export class HeaderComponent implements OnInit {
                 .title('Book Club')
                 .body(`
                     <p class="login-headline">Sign in to BookClub to checkout what other people read.</p>
-                    <div>
+                    <div class="signin-buttons-wrapper">
                         <a class="signin-button twitter-login-button">
                             <span class="signin-icon-wrapper">
                                 <img class="signin-icon" src="http://i.imgur.com/R8Hw3We.png"/>
                             </span>
                             <div class="login-button-text">
-                                <span>Login with Twitter</span>
+                                <span>Sign in with Twitter</span>
                                 <span class="permission-text">We won't post without asking</span>
                             </div>
                         </a>
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
                                 <img class="signin-icon" src="http://i.imgur.com/OVFUdiH.png"/>
                             </span>
                             <div class="login-button-text">
-                                <span>Login with Facebook</span>
+                                <span>Sign in with Facebook</span>
                                 <span class="permission-text">We won't post without asking</span>
                             </div>
                         </a>

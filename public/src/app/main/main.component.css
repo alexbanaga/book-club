@@ -1,0 +1,38 @@
+.books-list-header {
+  /*display: flex;*/
+  text-align: center;
+}
+
+.books-list-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.normal-white-space {
+  white-space: normal;
+}
+
+.book-title {
+  margin-bottom: 8px;
+}
+
+.book-item span {
+  line-height: 2em;
+}
+
+.book-name {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.book-author {
+  font-size: 14px;
+}
+
+.book-description {
+  font-size: 15px !important;
+}
+
+.book-review {
+  margin: 5px 0 !important;
+}
