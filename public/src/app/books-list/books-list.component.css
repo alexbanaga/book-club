@@ -1,0 +1,70 @@
+.book-list-container {
+  margin-top: 60px;
+}
+
+.books-list-header {
+  text-align: center;
+}
+
+.books-list-header h2 {
+  font-size: 50px;
+}
+
+.books-list-header span {
+  font-size: 18px;
+}
+
+.books-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.normal-white-space {
+  white-space: normal;
+}
+
+.book-card {
+  background: #f7f5f5;
+  margin-top: 10px;
+}
+
+.book-title {
+  margin-bottom: 8px;
+}
+
+.book-item span {
+  line-height: 2em;
+}
+
+.book-name {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.book-author {
+  font-size: 14px;
+}
+
+.book-description {
+  font-size: 15px !important;
+}
+
+.book-review {
+  margin: 5px 0 !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .books-list-header h2 {
+    font-size: 35px;
+  }
+
+  .books-list-header span {
+    font-size: 16px;
+  }
+
+  .books-list-wrapper {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
