@@ -13,9 +13,10 @@ import {HeaderComponent} from './header/header.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {FooterComponent} from './footer/footer.component';
 import {BooksListComponent} from './books-list/books-list.component';
+import {BookClubApiService} from "./services/book-club-api.service";
 
 const appRoutes: Routes = [
-  {path: 'books', component: BooksListComponent},
+  {path: 'my-lists', component: BooksListComponent},
   {path: '', component: HeaderComponent}
 ];
 
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
     BootstrapModalModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [BookClubApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

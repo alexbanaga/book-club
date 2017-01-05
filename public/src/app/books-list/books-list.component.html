@@ -1,38 +1,68 @@
 <!-- Main Content -->
 <div class="container book-list-container">
   <div class="row">
-    <div class="books-list-header">
-      <h2>20 Inspiring Books</h2>
-      <span>
-        <span md-line>by Tal Binder</span>
-        <span md-line>1 January, 2017</span>
-      </span>
-    </div>
-    <div class="books-list-wrapper">
-      <md-card class="book-card col-lg-10 col-xs-12">
-        <md-card-title class="book-title">
-          <span class="book-name">Buffet </span>
-          <span class="book-author">by Tal Binder</span>
-        </md-card-title>
-        <md-card-content>
-          <p md-line class="book-review">Personal review</p>
-          <p md-line class="book-review">
-            This is a 140 chars description , you can write your opinion or a description.
-          </p>
-        </md-card-content>
-      </md-card>
-      <md-card class="book-card col-lg-10 col-xs-12">
-        <md-card-title class="book-title">
-          <span class="book-name">Buffet </span>
-          <span class="book-author">by Tal Binder</span>
-        </md-card-title>
-        <md-card-content>
-          <p md-line class="book-review">Personal review</p>
-          <p md-line class="book-review">
-            This is a 140 chars description , you can write your opinion or a description.
-          </p>
-        </md-card-content>
-      </md-card>
+    <div class="book-list-wrapper">
+      <div class="books-list-header">
+        <md-input-container md-line class="list-name-input-container col-lg-8 col-xs-10">
+          <input md-input [placeholder]="bookListTitle.value == '' ? 'List name' : ''" maxlength="30" #bookListTitle>
+          <md-hint align="end">{{bookListTitle.value.length}} / 30</md-hint>
+        </md-input-container>
+        <div class="list-details">
+          <span>by Tal Binder</span>
+          <span>{{getTime}}</span>
+        </div>
+      </div>
+      <div class="books-list-wrapper">
+        <md-card *ngFor="let book of books" class="book-card col-lg-10 col-xs-12">
+          <button (click)="removeBook(book)" color="accent" md-mini-fab>
+            <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          </button>
+          <md-card-title class="book-title">
+            <a target="_blank" href="{{book.link}}" class="book-name">{{book.name}}</a>
+            <span class="book-author"> by {{book.author}}</span>
+          </md-card-title>
+          <md-card-content>
+            <p md-line class="book-review">{{book.personalReview}}</p>
+            <p md-line class="book-review">
+              {{book.description}}
+            </p>
+          </md-card-content>
+        </md-card>
+        <md-card class="book-card col-lg-10 col-xs-12">
+          <md-input-container class="book-name-input-container col-xs-12">
+            <input md-input placeholder="Book name" maxlength="50" #bookNameCounterHint>
+            <md-hint align="end">{{bookNameCounterHint.value.length}} / 50</md-hint>
+          </md-input-container>
+          <md-input-container class="book-link-input-container col-xs-12">
+            <input class="book-link-input" maxlength="300" md-input placeholder="Amazon link" #bookLinkCounterHint>
+            <md-hint align="end">{{bookLinkCounterHint.value.length}} / 300</md-hint>
+          </md-input-container>
+          <md-input-container class="book-author-input-container col-xs-12">
+            <input class="book-author-input" maxlength="50" md-input placeholder="Book Author" #bookAuthorCounterHint>
+            <md-hint align="end">{{bookAuthorCounterHint.value.length}} / 50</md-hint>
+          </md-input-container>
+          <md-input-container class="personal-review-input-container col-xs-12">
+          <textarea style="resize: none;" rows="4" maxlength="140" class="personal-review-input" md-input
+                    placeholder="Personal review" #personalReviewCounterHint></textarea>
+            <md-hint align="end">{{personalReviewCounterHint.value.length}} / 140</md-hint>
+          </md-input-container>
+          <md-input-container md-line class="description-input-container col-xs-12">
+          <textarea style="resize: none;" rows="4" maxlength="140" class="description-input" md-input
+                    placeholder="Book description" #descriptionCounterHint></textarea>
+            <md-hint align="end">{{descriptionCounterHint.value.length}} / 140</md-hint>
+          </md-input-container>
+          <button class="add-book-button" (click)="addBook(bookNameCounterHint, bookLinkCounterHint, bookAuthorCounterHint,
+         personalReviewCounterHint, descriptionCounterHint)" md-line md-raised-button>ADD BOOK
+          </button>
+        </md-card>
+        <button class="publish-list-button" md-line md-raised-button>PUBLISH LIST</button>
+        <br>
+        <br>
+        <br>
+      </div>
     </div>
   </div>
 </div>

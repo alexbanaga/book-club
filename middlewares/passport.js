@@ -4,16 +4,16 @@
 'use strict';
 
 var Users = require('../models/User');
-var LocalStrategy = require('passport-local').Strategy;
+var facebookLogin = require('./facebook-login');
+var twitterLogin = require('./twitter-login');
 
 function initPassport(passport) {
     passport.serializeUser(function (user, done) {
         //return the unique id for the user
-        return done(null, user._id);
+        return done(null, user._id || user.id);
     });
 
     passport.deserializeUser(function (id, done) {
-        console.log(id);
         Users.findById(id, function (err, user) {
             if (err) {
                 console.log(err);
@@ -26,21 +26,8 @@ function initPassport(passport) {
         });
     });
 
-    passport.use('login', new LocalStrategy({
-            usernameField: 'facebookId',
-            passwordField: 'token',
-            passReqToCallback: true
-        },
-        function (req, facebookId, token, done) {
-            login(req.body.email, facebookId, token, function (err, user) {
-                if (err) {
-                    return done(err);
-                } else {
-                    return done(null, user);
-                }
-            });
-        }
-    ));
+    facebookLogin(passport);
+    twitterLogin(passport);
 }
 
 module.exports = initPassport;

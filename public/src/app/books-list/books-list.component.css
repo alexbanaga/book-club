@@ -1,17 +1,21 @@
 .book-list-container {
-  margin-top: 60px;
+  margin-top: 90px;
+}
+
+.books-list-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .books-list-header {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.books-list-header h2 {
-  font-size: 50px;
-}
-
-.books-list-header span {
-  font-size: 18px;
+.list-details span {
+  font-weight: 500;
+  font-size: 17px;
 }
 
 .books-list-wrapper {
@@ -29,6 +33,16 @@
   margin-top: 10px;
 }
 
+.book-card button[md-mini-fab] {
+  padding-top: 8px;
+  display: flex;
+  justify-content: center;
+  background: #f3f3f3;
+  position: absolute;
+  top: 13px;
+  right: 13px;
+}
+
 .book-title {
   margin-bottom: 8px;
 }
@@ -40,6 +54,7 @@
 .book-name {
   font-weight: 500;
   font-size: 18px;
+  color: #03A9F4;
 }
 
 .book-author {
@@ -54,12 +69,19 @@
   margin: 5px 0 !important;
 }
 
-@media only screen and (max-width: 768px) {
-  .books-list-header h2 {
-    font-size: 35px;
-  }
+.add-book-button {
+  margin-left: 14px;
+  margin-top: 10px;
+  background: #8BC34A;
+}
 
-  .books-list-header span {
+.publish-list-button {
+  margin-top: 30px;
+  background: #03A9F4;
+}
+
+@media only screen and (max-width: 768px) {
+  .list-details span {
     font-size: 16px;
   }
 

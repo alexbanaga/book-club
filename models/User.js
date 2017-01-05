@@ -7,16 +7,19 @@ var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
     email: {type: String, required: true},
-    username: {type: String, required: true},
-    password: {type: String, required: true},
-    salt: {type: String, required: true},
     firstName: {type: String, required: true},
-    middleName: {type: String, default: ""},
     lastName: {type: String, required: true},
+    displayName: {type: String, required: true},
     facebookId: {type: String, required: false},
     twitterId: {type: String, required: false},
+    googleId: {type: String, required: false},
     updatedAt: {type: Date, default: Date.now},
     createdAt: {type: Date, default: Date.now}
+});
+
+userSchema.pre('save', function(next){
+    this.updatedAt = new Date();
+    next();
 });
 
 var userModel;
