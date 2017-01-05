@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
       .body(`
                     <p class="login-headline">Sign in to BookClub to checkout what other people read.</p>
                     <div class="signin-buttons-wrapper">
-                        <a href="/auth/twitter/callback" class="signin-button twitter-login-button">
+                        <a href="/auth/twitter" class="signin-button twitter-login-button">
                             <span class="signin-icon-wrapper">
                                 <img class="signin-icon" src="http://i.imgur.com/R8Hw3We.png"/>
                             </span>
@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
                                 <span class="permission-text">We won't post without asking</span>
                             </div>
                         </a>
-                        <a href="/auth/facebook/callback" class="signin-button facebook-login-button">
+                        <a href="/auth/facebook" class="signin-button facebook-login-button">
                             <span class="signin-icon-wrapper">
                                 <img class="signin-icon" src="http://i.imgur.com/OVFUdiH.png"/>
                             </span>
