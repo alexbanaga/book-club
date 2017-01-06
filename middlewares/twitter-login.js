@@ -5,6 +5,7 @@
 
 const config = require('../config').twitter;
 const User = require('../models/User');
+var debug = require('debug')('read-list:server');
 var TwitterStrategy = require('passport-twitter').Strategy;
 
 function twitterLogin(passport) {
@@ -14,8 +15,7 @@ function twitterLogin(passport) {
             callbackURL: "http://www.bookclub.me/auth/twitter/callback"
         },
         function (token, tokenSecret, profile, done) {
-            console.log(profile);
-            console.log(JSON.stringify(profile));
+            debug(profile);
             var mainEmail;
             if (profile.emails) {
                 mainEmail = profile.emails.shift();
@@ -43,9 +43,8 @@ function twitterLogin(passport) {
                     var newUser = new User({
                         email: mainEmail,
                         twitterId: profile.id,
-                        firstName: profile.name.givenName,
-                        lastName: profile.name.familyName,
-                        displayName: profile.displayName || (profile.name.givenName + " " + profile.name.familyName)
+                        twitterName: profile.screen_name,
+                        name: profile.name
                     });
 
                     newUser.save(function (err, savedUser) {
