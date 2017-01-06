@@ -9,6 +9,7 @@ var userSchema = new mongoose.Schema({
     email: {type: String, required: false},
     name: {type: String, required: true},
     twitterName: {type: String, required: false},
+    facebookName: {type: String, required: false},
     facebookId: {type: String, required: false},
     twitterId: {type: String, required: false},
     googleId: {type: String, required: false},

@@ -5,6 +5,7 @@
 
 const config = require('../config').facebook;
 const User = require('../models/User');
+var debug = require('debug')('read-list:server');
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 function facebookLogin(passport) {
@@ -14,14 +15,18 @@ function facebookLogin(passport) {
             callbackURL: "http://www.bookclub.me/auth/facebook/callback"
         },
         function (accessToken, refreshToken, profile, done) {
-            var mainEmail = profile.emails.shift();
-            if (!mainEmail) {
-                return done(new Error("Facebook user's email was not found."));
+            debug(profile);
+            var mainEmail;
+            if (profile.emails) {
+                mainEmail = profile.emails.shift();
             }
 
+            var searchConditions = [{twitterId: profile.id}];
+            if (mainEmail)
+                searchConditions.push({email: mainEmail});
+
             User.findOne({
-                $or: [{email: mainEmail},
-                    {facebookId: profile.id}]
+                $or: searchConditions
             }, function (err, user) {
                 if (err) {
                     return done(err);
@@ -38,9 +43,8 @@ function facebookLogin(passport) {
                     var newUser = new User({
                         email: mainEmail,
                         facebookId: profile.id,
-                        firstName: profile.name.givenName,
-                        lastName: profile.name.familyName,
-                        displayName: profile.displayName || (profile.name.givenName + " " + profile.name.familyName)
+                        facebookName: profile.username,
+                        name: profile.displayName
                     });
 
                     newUser.save(function (err, savedUser) {
