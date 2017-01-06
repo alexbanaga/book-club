@@ -4,6 +4,7 @@
 'use strict';
 
 var newrelic = require('newrelic');
+var debug = require('debug');
 var express = require('express');
 var passport = require('passport');
 var mongoose = require('mongoose');
