@@ -1,47 +1,48 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Overlay} from 'angular2-modal';
 import {Modal} from 'angular2-modal/plugins/bootstrap';
+import {BookClubApiService} from "../services/book-club-api.service";
 
 @Component({
-    selector: 'bc-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css']
+  selector: 'bc-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
-    constructor(overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal) {
-        overlay.defaultViewContainer = vcRef;
+  constructor(overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal, private bookClubApi: BookClubApiService) {
+    overlay.defaultViewContainer = vcRef;
+  }
+
+  ngOnInit() {
+  }
+
+  private getCookie(name: string) {
+    let ca: Array<string> = document.cookie.split(';');
+    let caLen: number = ca.length;
+    let cookieName = name + "=";
+    let c: string;
+
+    for (let i: number = 0; i < caLen; i += 1) {
+      c = ca[i].replace(/^\s\+/g, "");
+      if (c.indexOf(cookieName) == 0) {
+        return c.substring(cookieName.length, c.length);
+      }
     }
+    return "";
+  }
 
-    ngOnInit() {
-    }
-
-    private getCookie(name: string) {
-        let ca: Array<string> = document.cookie.split(';');
-        let caLen: number = ca.length;
-        let cookieName = name + "=";
-        let c: string;
-
-        for (let i: number = 0; i < caLen; i += 1) {
-            c = ca[i].replace(/^\s\+/g, "");
-            if (c.indexOf(cookieName) == 0) {
-                return c.substring(cookieName.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    createList() {
-        console.log('Create list');
-        if (this.getCookie("connect.sid") !== "") {
-            //Logged in
-        } else {
-            //Not logged in
-            this.modal.alert()
-                .size('lg')
-                .showClose(false)
-                .title('Book Club')
-                .body(`
+  createList() {
+    console.log('Create list');
+    if (this.getCookie("connect.sid") !== "") {
+      //Logged in
+    } else {
+      //Not logged in
+      this.modal.alert()
+        .size('lg')
+        .showClose(false)
+        .title('Book Club')
+        .body(`
                     <p class="login-headline">Sign in to BookClub to checkout what other people read.</p>
                     <div class="signin-buttons-wrapper">
                         <a href="/auth/twitter" class="signin-button twitter-login-button">
@@ -66,9 +67,9 @@ export class HeaderComponent implements OnInit {
                     <div class="terms-text">
                         <p>By signing up you agree to privacy policy, cookie policy, terms and conditions.</p>
                     </div>`)
-                .okBtnClass('hide')
-                .open();
-        }
+        .okBtnClass('hide')
+        .open();
     }
+  }
 
 }

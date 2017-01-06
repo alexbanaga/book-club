@@ -5,10 +5,12 @@
 
 function setupRoutes(app, passport) {
     var loginRoutes = require('./login');
+    var booksApi = require('./books-api');
+
 
 
     loginRoutes(app, passport);
-
+    app.use('/api', booksApi);
 }
 
 module.exports = setupRoutes;

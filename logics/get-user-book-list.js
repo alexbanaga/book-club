@@ -3,10 +3,18 @@
  */
 'use strict';
 
-const BookLists = require('../models/BookList');
+const newrelic = require('newrelic');
+const BookList = require('../models/BookList');
 
-function getUserBookList(userId, bookListId, callback) {
-
+function getUserBookList(listId, callback) {
+    BookList.fineOne({listId: listId}, 'name authorName books listId createdAr updatedAt', function (err, list) {
+        if (err) {
+            newrelic.noticeError(err);
+            return callback(err);
+        } else {
+            return callback(null, list);
+        }
+    })
 }
 
 module.exports = getUserBookList;

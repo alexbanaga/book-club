@@ -6,24 +6,20 @@ import {BookList} from "../models/book-list";
 
 @Injectable()
 export class BookClubApiService {
-  private get signinUrl(): string {
-    return "";
+  private get getUserLibraryUrl(): string {
+    return "api/library";
   }
 
-  private get signupUrl(): string {
-    return "";
-  }
-
-  private get getMemberLibraryUrl(): string {
-    return "";
-  }
-
-  private get creaeteListUrl(): string {
-    return "";
+  private get createListUrl(): string {
+    return "api/list";
   }
 
   private get getListBaseUrl(): string {
-    return "";
+    return "api/list";
+  }
+
+  private get logoutUrl(): string {
+    return "api/logout";
   }
 
   constructor(private http: Http) {
@@ -48,33 +44,14 @@ export class BookClubApiService {
     return Observable.throw(errMsg);
   }
 
-  Signin(username: string, password: string) {
-    let body: string = JSON.stringify({username: username, password: password});
-    let headers: Headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post(this.signinUrl, body, {headers: headers})
-      .map(this.extractData)
-      .catch(this.handleError)
-  }
-
-  Signup(email: string, username: string, facebookId: string, twitterId: string, firstName: string,
-         lastName: string, password: string) {
-    let body: string = JSON.stringify({
-      email: email, username: username, facebookId: facebookId,
-      twitterId: twitterId, firstName: firstName, lastName: lastName, password: password
-    });
-
-    let headers: Headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post(this.signupUrl, body, {headers: headers})
+  logout() {
+    return this.http.get(this.logoutUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getMemberLibrary() {
-    return this.http.get(this.getMemberLibraryUrl)
+  getUserDetails() {
+    return this.http.get(this.getUserLibraryUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -84,7 +61,7 @@ export class BookClubApiService {
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post(this.creaeteListUrl, body, {headers: headers})
+    return this.http.post(this.createListUrl, body, {headers: headers})
       .map(this.extractData)
       .catch(this.handleError);
   }

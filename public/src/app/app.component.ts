@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-
-import {NavbarComponent} from './navbar/navbar.component';
-import {HeaderComponent} from './header/header.component';
-import {MainComponent} from './main/main.component';
-import {FooterComponent} from './footer/footer.component';
+import {BookClubApiService} from "./services/book-club-api.service";
 
 
 @Component({
-    selector: 'bc-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'bc-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  providers: [BookClubApiService]
 })
 export class AppComponent implements OnInit {
-    constructor() {
-    }
+  constructor(private bookClubApiService: BookClubApiService) {
+  }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+    this.bookClubApiService.getUserDetails().subscribe((data) => {
+      console.log(data);
+    });
+  }
 }
