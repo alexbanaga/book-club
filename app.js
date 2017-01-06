@@ -9,7 +9,6 @@ var express = require('express');
 var passport = require('passport');
 var initPassport = require('./middlewares/passport');
 var mongoose = require('mongoose');
-var forcedomain = require('forcedomain');
 var routes = require('./routes/routes');
 var path = require('path');
 var logger = require('morgan');
@@ -24,10 +23,6 @@ var app = express();
 
 //Initialize Mongoose
 require('./database-init')(mongoose);
-
-// app.use(forcedomain({
-//     hostname: 'www.bookclub.me'
-// }));
 
 app.use(logger('dev'));
 app.use(session({
