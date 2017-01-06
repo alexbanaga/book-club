@@ -29,7 +29,11 @@ app.use(session({
     secret: 'Binder Done That',
     store: new MongoStore({mongooseConnection: mongoose.connection }),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        path: '/',
+        domain: '.bookclub.me'
+    }
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
