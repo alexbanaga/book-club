@@ -9,6 +9,7 @@ var express = require('express');
 var passport = require('passport');
 var initPassport = require('./middlewares/passport');
 var mongoose = require('mongoose');
+var forcedomain = require('forcedomain');
 var routes = require('./routes/routes');
 var path = require('path');
 var logger = require('morgan');
@@ -24,16 +25,16 @@ var app = express();
 //Initialize Mongoose
 require('./database-init')(mongoose);
 
+app.use(forceDomain({
+    hostname: 'www.bookclub.me'
+}));
+
 app.use(logger('dev'));
 app.use(session({
     secret: 'Binder Done That',
     store: new MongoStore({mongooseConnection: mongoose.connection }),
     resave: false,
-    saveUninitialized: false,
-    cookie: {
-        path: '/',
-        domain: '.bookclub.me'
-    }
+    saveUninitialized: false
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
