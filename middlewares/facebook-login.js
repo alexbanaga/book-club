@@ -22,7 +22,7 @@ function facebookLogin(passport) {
                 mainEmail = profile.emails.shift();
             }
 
-            var searchConditions = [{twitterId: profile.id}];
+            var searchConditions = [{facebookId: profile.id}];
             if (mainEmail)
                 searchConditions.push({email: mainEmail});
 
