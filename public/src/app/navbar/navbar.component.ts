@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Overlay} from 'angular2-modal';
 import {Modal} from 'angular2-modal/plugins/bootstrap';
+import {BookClubApiService} from "../services/book-club-api.service";
 
 @Component({
   selector: 'bc-navbar',
@@ -9,7 +10,7 @@ import {Modal} from 'angular2-modal/plugins/bootstrap';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal) {
+  constructor(overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal, public bookClubApiService: BookClubApiService) {
     overlay.defaultViewContainer = vcRef;
   }
 

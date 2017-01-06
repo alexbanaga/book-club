@@ -7,69 +7,78 @@ import {BookList} from "../models/book-list";
 @Injectable()
 export class BookClubApiService {
   private get getUserLibraryUrl(): string {
-    return "api/library";
+    return "/api/library";
   }
 
-  private get createListUrl(): string {
-    return "api/list";
+  private get createOrUpdateListUrl(): string {
+    return "/api/list";
   }
 
   private get getListBaseUrl(): string {
-    return "api/list";
+    return "/api/list";
   }
 
   private get logoutUrl(): string {
-    return "api/logout";
+    return "/api/logout";
   }
+
+  isLoggedIn: boolean = false;
+  books: any;
+  listCreatedAt: Date;
+  listUpdatedAt: Date;
+  listTitle: string;
+  listId: string;
+  name: string = "";
+  twitterName: string;
+  facebookName: string;
 
   constructor(private http: Http) {
   }
 
   private extractData(res: Response) {
     let body = res.json();
-    return body.data || {};
-  }
-
-  private handleError(error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+    return body || {};
   }
 
   logout() {
     return this.http.get(this.logoutUrl)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(this.extractData);
   }
 
   getUserDetails() {
     return this.http.get(this.getUserLibraryUrl)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(this.extractData);
   }
 
-  createList(bookList: BookList) {
-    let body: string = JSON.stringify(bookList);
+  createOrUpdateList() {
+    let list = {
+      listId: this.listId,
+      title: this.listTitle,
+      books: this.books
+    };
+    let body: string = JSON.stringify(list);
     let headers: Headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post(this.createListUrl, body, {headers: headers})
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.post(this.createOrUpdateListUrl, body, {headers: headers})
+      .map(this.extractData);
   }
 
   getList(username: string, listName: string) {
     return this.http.get(`${this.getListBaseUrl}/${username}/${listName}`)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(this.extractData);
+  }
+
+  clearSession() {
+    this.isLoggedIn = false;
+    this.books = [];
+    this.listCreatedAt = null;
+    this.listUpdatedAt = null;
+    this.listTitle = null;
+    this.listId = null;
+    this.name = "";
+    this.twitterName = null;
+    this.facebookName = null;
   }
 
 }

@@ -17,15 +17,18 @@
                 <li>
                     <a routerLink="/" routerLinkActive="active">Home</a>
                 </li>
-                <li>
-                    <a routerLink="/my-lists" routerLinkActive="active">About</a>
+                <li *ngIf="this.bookClubApiService.isLoggedIn">
+                    <a routerLink="/list" routerLinkActive="active">Your List</a>
                 </li>
-                <li>
+                <li *ngIf="!this.bookClubApiService.isLoggedIn">
                     <a (click)="openSigninModal()">Sign in/Sign up</a>
                 </li>
                 <li>
                     <a routerLink="/" routerLinkActive="active">Contact</a>
                 </li>
+              <li *ngIf="this.bookClubApiService.isLoggedIn">
+                <a (click)="this.bookClubApiService.clearSession()" href="/api/logout">Logout</a>
+              </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

@@ -9,7 +9,8 @@ var hashGenerator = require('../logics/helpers/hash-generator');
 var bookSchema = new mongoose.Schema({
     name: {type: String, required: true},
     link: {type: String, required: true},
-    personaReview: {type: String, required: true},
+    author: {type: String, required: true},
+    personalReview: {type: String, required: true},
     description: {type: String, required: true},
     updatedAt: {type: Date, default: Date.now},
     createdAt: {type: Date, default: Date.now}
@@ -22,8 +23,8 @@ bookSchema.pre('save', function (next) {
 
 var bookListSchema = new mongoose.Schema({
     userId: {type: String, required: true},
-    name: {type: String, required: true},
-    authorName: {type: String, required: true},
+    title: {type: String, required: true},
+    userName: {type: String, required: true},
     books: {type: [bookSchema], default: []},
     listId: {type: String, default: null},
     updatedAt: {type: Date, default: Date.now},

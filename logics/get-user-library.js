@@ -6,18 +6,21 @@
 const newrelic = require('newrelic');
 const BookList = require('../models/BookList');
 
-function getUserDetails(user, userId, callback) {
-    BookList.find({userId: userId}, '_id userId name books updatedAt createdAt', function (err, lists) {
+function getUserLibrary(user, userId, callback) {
+    BookList.find({userId: userId}, '_id listId title books updatedAt createdAt', function (err, lists) {
         if (err) {
             newrelic.noticeError(err);
             return callback(err);
         } else {
             return callback(null, {
-                library: lists || [],
+                //TODO: change to support multi lists
+                library: lists[0],
                 name: user.name,
-                facebookName: user.name,
+                facebookName: user.facebookName,
                 twitterName: user.twitterName
             });
         }
     });
 }
+
+module.exports = getUserLibrary;

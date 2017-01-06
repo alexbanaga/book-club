@@ -16,7 +16,7 @@ import {BooksListComponent} from './books-list/books-list.component';
 import {BookClubApiService} from "./services/book-club-api.service";
 
 const appRoutes: Routes = [
-  {path: 'my-lists', component: BooksListComponent},
+  {path: 'list', component: BooksListComponent},
   {path: '', component: HeaderComponent}
 ];
 

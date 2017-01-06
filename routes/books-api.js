@@ -3,11 +3,12 @@
  */
 'use strict';
 
+var newrelic = require('newrelic');
 var express = require('express');
 var router = express.Router();
 
 var getUserLibrary = require('../logics/get-user-library');
-var createList = require('../logics/create-new-list');
+var createOrUpdateList = require('../logics/create-or-update-list');
 var getList = require('../logics/get-user-book-list');
 
 router.get('/library', function (req, res) {
@@ -18,7 +19,7 @@ router.get('/library', function (req, res) {
             if (err) {
                 return res.status(200).send({success: false, error: "Error during fetching user library."});
             } else {
-                return res.status(200).send({success: true, library: userLibrary});
+                return res.status(200).send({success: true, data: userLibrary});
             }
         })
     }
@@ -26,20 +27,30 @@ router.get('/library', function (req, res) {
 
 router.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    req.session.destroy(function (err) {
+        if (err) {
+            newrelic.noticeError(err);
+        }
+
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+        res.redirect('/');
+    });
 });
 
 router.post('/list', function (req, res) {
     if (!req.user) {
         return res.status(200).send({success: false, error: "User is not logged in."});
     } else {
-        createList(req.user._id.toString(), req.user.name, req.body, function (err) {
-            if (err) {
-                return res.status(200).send({success: false, error: "Error during list creation."});
-            } else {
-                return res.status(200).send({success: true});
-            }
-        });
+        createOrUpdateList(req.user._id.toString(), req.body.listId, req.body.title,
+            req.user.name, req.body.books, function (err, listId) {
+                if (err) {
+                    return res.status(200).send({success: false, error: "Error during list creation."});
+                } else {
+                    return res.status(200).send({success: true, listId: listId});
+                }
+            });
     }
 });
 
@@ -48,7 +59,7 @@ router.get('/list/:id', function (req, res) {
         if (err) {
             return res.status(200).send({success: false, error: "Error while fetching the list."});
         } else {
-            return res.status(200).send({success: true, list: list});
+            return res.status(200).send({success: true, data: list});
         }
     });
 });

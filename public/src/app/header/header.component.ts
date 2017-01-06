@@ -2,6 +2,7 @@ import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Overlay} from 'angular2-modal';
 import {Modal} from 'angular2-modal/plugins/bootstrap';
 import {BookClubApiService} from "../services/book-club-api.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'bc-header',
@@ -10,32 +11,19 @@ import {BookClubApiService} from "../services/book-club-api.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal, private bookClubApi: BookClubApiService) {
+  constructor(overlay: Overlay, vcRef: ViewContainerRef, public modal: Modal,
+              private bookClubApiService: BookClubApiService, private router: Router) {
     overlay.defaultViewContainer = vcRef;
   }
 
   ngOnInit() {
   }
 
-  private getCookie(name: string) {
-    let ca: Array<string> = document.cookie.split(';');
-    let caLen: number = ca.length;
-    let cookieName = name + "=";
-    let c: string;
-
-    for (let i: number = 0; i < caLen; i += 1) {
-      c = ca[i].replace(/^\s\+/g, "");
-      if (c.indexOf(cookieName) == 0) {
-        return c.substring(cookieName.length, c.length);
-      }
-    }
-    return "";
-  }
-
   createList() {
     console.log('Create list');
-    if (this.getCookie("connect.sid") !== "") {
+    if (this.bookClubApiService.isLoggedIn) {
       //Logged in
+      this.router.navigate(['/list']);
     } else {
       //Not logged in
       this.modal.alert()
