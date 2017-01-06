@@ -12,7 +12,8 @@ function facebookLogin(passport) {
     passport.use(new FacebookStrategy({
             clientID: config.appId,
             clientSecret: config.appSecret,
-            callbackURL: "http://www.bookclub.me/auth/facebook/callback"
+            callbackURL: "http://www.bookclub.me/auth/facebook/callback",
+            enableProof: true
         },
         function (accessToken, refreshToken, profile, done) {
             debug(profile);
