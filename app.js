@@ -53,7 +53,10 @@ app.all('*', function(req, res) {
 
 // error handler
 app.use(function (err, req, res, next) {
-    debug(err.stack);
+    newrelic.noticeError(err,'Error');
+    console.log(err);
+    console.log(err.message);
+    console.log(err.stack);
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
