@@ -7,6 +7,7 @@ var newrelic = require('newrelic');
 var debug = require('debug');
 var express = require('express');
 var passport = require('passport');
+var initPassport = require('./middlewares/passport');
 var mongoose = require('mongoose');
 var routes = require('./routes/routes');
 var path = require('path');
@@ -37,6 +38,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+initPassport(passport);
+
+
 routes(app, passport);
 
 

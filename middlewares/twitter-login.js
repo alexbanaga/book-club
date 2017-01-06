@@ -9,8 +9,8 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 
 function twitterLogin(passport) {
     passport.use(new TwitterStrategy({
-            clientID: config.consumerKey,
-            clientSecret: config.consumerSecret,
+            consumerKey: config.consumerKey,
+            consumerSecret: config.consumerSecret,
             callbackURL: "http://www.bookclub.me/auth/twitter/callback"
         },
         function (token, tokenSecret, profile, done) {
