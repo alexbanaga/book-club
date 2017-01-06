@@ -14,6 +14,8 @@ function twitterLogin(passport) {
             callbackURL: "http://www.bookclub.me/auth/twitter/callback"
         },
         function (token, tokenSecret, profile, done) {
+            console.log(profile);
+            console.log(JSON.stringify(profile));
             var mainEmail;
             if (profile.emails) {
                 mainEmail = profile.emails.shift();
