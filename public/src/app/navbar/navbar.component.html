@@ -27,7 +27,7 @@
                     <a routerLink="/" routerLinkActive="active">Contact</a>
                 </li>
               <li *ngIf="this.bookClubApiService.isLoggedIn">
-                <a (click)="this.bookClubApiService.clearSession()" href="/api/logout">Logout</a>
+                <a href="/api/logout">Logout</a>
               </li>
             </ul>
         </div>
