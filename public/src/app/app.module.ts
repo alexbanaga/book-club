@@ -14,11 +14,13 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {FooterComponent} from './footer/footer.component';
 import {BooksListComponent} from './books-list/books-list.component';
 import {BookClubApiService} from "./services/book-club-api.service";
+import {CanActivateViaBookClubApiGuard} from "./books-list/books-list.guard";
 
 const appRoutes: Routes = [
-  {path: 'list', component: BooksListComponent},
-  {path: '', component: HeaderComponent}
-];
+  {path: '', component: HeaderComponent},
+  {path: 'list', component: BooksListComponent, canActivate: [CanActivateViaBookClubApiGuard]},
+  {path: 'unavailable', redirectTo: '', pathMatch: 'full'},
+  {path: '**', component: HeaderComponent}];
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ const appRoutes: Routes = [
     BootstrapModalModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [BookClubApiService],
+  providers: [BookClubApiService, CanActivateViaBookClubApiGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
