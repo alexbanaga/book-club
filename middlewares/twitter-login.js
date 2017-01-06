@@ -14,15 +14,17 @@ function twitterLogin(passport) {
             callbackURL: "http://www.bookclub.me/auth/twitter/callback"
         },
         function (token, tokenSecret, profile, done) {
-            console.log(JSON.stringify(profile));
-            var mainEmail = profile.emails.shift();
-            if (!mainEmail) {
-                return done(new Error("Twitter user's email was not found."));
+            var mainEmail;
+            if (profile.emails) {
+                mainEmail = profile.emails.shift();
             }
 
+            var searchConditions = [{twitterId: profile.id}];
+            if (mainEmail)
+                searchConditions.push({email: mainEmail});
+
             User.findOne({
-                $or: [{email: mainEmail},
-                    {twitterId: profile.id}]
+                $or: searchConditions
             }, function (err, user) {
                 if (err) {
                     return done(err);
