@@ -25,9 +25,9 @@ var app = express();
 //Initialize Mongoose
 require('./database-init')(mongoose);
 
-app.use(forceDomain({
-    hostname: 'www.bookclub.me'
-}));
+// app.use(forcedomain({
+//     hostname: 'www.bookclub.me'
+// }));
 
 app.use(logger('dev'));
 app.use(session({
