@@ -43,8 +43,8 @@ function twitterLogin(passport) {
                     var newUser = new User({
                         email: mainEmail,
                         twitterId: profile.id,
-                        twitterName: profile.screen_name,
-                        name: profile.name
+                        twitterName: profile.username,
+                        name: profile.displayName
                     });
 
                     newUser.save(function (err, savedUser) {
