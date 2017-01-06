@@ -25,16 +25,15 @@ var app = express();
 require('./database-init')(mongoose);
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(cookieParser());
-
 app.use(session({
     secret: 'Binder Done That',
     store: new MongoStore({mongooseConnection: mongoose.connection }),
     resave: false,
     saveUninitialized: false
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());

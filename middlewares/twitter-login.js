@@ -14,6 +14,7 @@ function twitterLogin(passport) {
             callbackURL: "http://www.bookclub.me/auth/twitter/callback"
         },
         function (token, tokenSecret, profile, done) {
+            console.log(JSON.stringify(profile));
             var mainEmail = profile.emails.shift();
             if (!mainEmail) {
                 return done(new Error("Twitter user's email was not found."));
