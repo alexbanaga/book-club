@@ -1,10 +1,11 @@
 <!-- Main Content -->
-<div class="container book-list-container">
+<div [hidden]="bookClubApiService.loaded" class="container book-list-container">
   <div class="row">
     <div class="book-list-wrapper">
       <div class="books-list-header">
         <md-input-container md-line class="list-name-input-container col-lg-8 col-xs-10">
-          <input md-input [(ngModel)]=bookClubApiService.listTitle [placeholder]="bookListTitle.value == '' ? 'List title' : ''" maxlength="30" #bookListTitle>
+          <input md-input [(ngModel)]=bookClubApiService.listTitle
+                 [placeholder]="bookListTitle.value == '' ? 'List title' : ''" maxlength="30" #bookListTitle>
           <md-hint align="end">{{bookListTitle.value.length}} / 30</md-hint>
         </md-input-container>
         <div class="list-details">
@@ -58,7 +59,9 @@
          personalReviewCounterHint, descriptionCounterHint)" md-line md-raised-button>ADD BOOK
           </button>
         </md-card>
-        <button (click)="publishList()" class="publish-list-button" [disabled]="isPublishing" md-line md-raised-button>PUBLISH LIST</button>
+        <button (click)="publishList()" class="publish-list-button" [disabled]="isPublishing" md-line md-raised-button>
+          PUBLISH LIST
+        </button>
         <br>
         <br>
         <br>

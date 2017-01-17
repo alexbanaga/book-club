@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Output} from '@angular/core';
 import {Http, Headers, Response, RequestOptionsArgs} from "@angular/http";
 import 'rxjs/Rx';
 import {Observable} from "rxjs";
@@ -22,6 +22,11 @@ export class BookClubApiService {
     return "/api/logout";
   }
 
+  @Output() get loaded() {
+    return this.isLoaded;
+  }
+  isLoaded: Observable<boolean>;
+
   isLoggedIn: boolean = false;
   books: any;
   listCreatedAt: Date;
@@ -36,6 +41,8 @@ export class BookClubApiService {
   }
 
   private extractData(res: Response) {
+    this.isLoaded = true;
+
     let body = res.json();
     return body || {};
   }
@@ -46,6 +53,7 @@ export class BookClubApiService {
   }
 
   getUserDetails() {
+    this.isLoaded = false;
     return this.http.get(this.getUserLibraryUrl)
       .map(this.extractData);
   }

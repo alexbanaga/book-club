@@ -1,8 +1,6 @@
+<div [hidden]="bookClubApiService.loaded" class="bc-spinner">
+  <md-progress-spinner class="spinner" mode="indeterminate"></md-progress-spinner>
+</div>
 <bc-navbar></bc-navbar>
-<!--<bc-header></bc-header>-->
-
 <!-- Routed views go here -->
 <router-outlet></router-outlet>
-
-<!--<bc-main></bc-main>-->
-<!--<bc-footer></bc-footer>-->

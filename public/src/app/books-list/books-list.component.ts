@@ -53,7 +53,7 @@ export class BooksListComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    if (!this.bookClubApiService.isLoggedIn) {
+    if (!this.bookClubApiService.isLoggedIn && this.bookClubApiService.loaded) {
       this.router.navigate(['/']);
     }
   }

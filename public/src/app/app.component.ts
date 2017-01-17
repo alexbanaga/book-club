@@ -9,6 +9,8 @@ import {BookList} from "./models/book-list";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  loaded: boolean = false;
+
   constructor(private bookClubApiService: BookClubApiService) {
   }
 
@@ -33,6 +35,8 @@ export class AppComponent implements OnInit {
           this.bookClubApiService.books = [];
           this.bookClubApiService.listTitle = "";
         }
+
+        this.loaded = false;
       }
     });
   }
